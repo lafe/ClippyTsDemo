@@ -6,23 +6,96 @@
 declare module clippy {
     /**
      * Stores the base location of the Agents (trailing slash is required)
-     */ 
+     */
     var BASE_PATH: string;
 
     interface IAgent {
         /**
          * Shows the agent
+         *
+         * @param fast If set to true, the hide animation will be performed fast
          */
-        show();
+        show(fast?:boolean);
+
+        /**
+         * Hides the agent
+         *
+         * @param fast If set to true, the hide animation will be performed fast
+         * @param hiddenCallback The callback that is executed when the agent is hidden
+         */
+        hide(fast?: boolean, hiddenCallback?: () => void);
 
         /**
          * Plays a given animation
          *
          * @param animationName The name of the animation to be played
+         * @param timeout The duration of the animation in milliseconds. If not specified, 5000ms is used.
+         * @param animationCompletedCallback The callback that is executed when the animation is complete
+         * @returns Returns true if the animation could be played. If the animationName is unknown, false will be returned
          */
-        Play(animationName: string);
+        play(animationName: string, timeout?: number, animationCompletedCallback?: () => void): boolean;
 
+        /**
+         * Checks if a given animation exists
+         *
+         * @param animationName The name of the animation to be checked
+         * @returns Returns true if the animation exists; otherwise, false will be returned
+         */
+        hasAnimation(animationName:string):boolean;
 
+        /**
+         * Plays a random animation
+         */
+        animate();
+
+        /**
+         * Get a list of all the animations
+         */
+        animations(): string[];
+
+        /**
+         * Shows a text ballon with the message
+         *
+         * @param message The message to be shown
+         */
+        speak(message: string);
+
+        /**
+         * Closes the current balloon
+         */
+        closeBalloon();
+
+        /**
+         * Adds a delay to the current queue
+         */
+        delay(time:number);
+
+        /**
+         * Moves the agent to the given coordinates. An animation is used, if it is available
+         * 
+         * @param x The x coordinates
+         * @param y The y coordinates
+         * @param duration The duration the gesture should take
+         */
+        moveTo(x: number, y: number, duration?: number);
+
+        /**
+         * Gestures at the given point if the gesture animation is available
+         * 
+         * @param x The x coordinates
+         * @param y The y coordinates
+         */
+        gestureAt(x: number, y: number);
+
+        /** 
+         * Stops the current action in the queue
+         */
+        stopCurrent();
+
+        /**
+         * Stops all actions in the queue and foes back to idle mode
+         */
+        stop();
     }
 
     /**

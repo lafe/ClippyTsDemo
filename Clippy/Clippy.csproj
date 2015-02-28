@@ -35,6 +35,7 @@
     <TypeScriptCompile Include="sources\ClippyController.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="agents\Content.md" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

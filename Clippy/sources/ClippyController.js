@@ -10,7 +10,11 @@ var ClippyController = (function () {
     }
     ClippyController.prototype.agentLoaded = function () {
         this.agent.show();
-        this.agent.Play("Searching");
+        this.agent.animate();
+        var animations = this.agent.animations();
+        alert(animations);
+        this.agent.play(animations[2]);
+        this.agent.speak("Hello World");
     };
     return ClippyController;
 })();
