@@ -8,13 +8,27 @@ var ClippyController = (function () {
             _this.agentLoaded();
         });
     }
+    /**
+     * Handler that performs the necessary operations after the agent has been loaded
+     */
     ClippyController.prototype.agentLoaded = function () {
+        this.createIdleTimer();
         this.agent.show();
-        this.agent.animate();
-        var animations = this.agent.animations();
-        alert(animations);
-        this.agent.play(animations[2]);
-        this.agent.speak("Hello World");
+        this.agent.speak("Clippy is back!");
+    };
+    /**
+     * Creates a timer that plays random animations after the timeout without action has been elapsed
+     */
+    ClippyController.prototype.createIdleTimer = function () {
+        var _this = this;
+        var randomTimeout = this.getRandomNumber(10, 120);
+        this.timerIntervalId = window.setTimeout(function () {
+            _this.agent.animate();
+            _this.createIdleTimer();
+        }, randomTimeout * 1000);
+    };
+    ClippyController.prototype.getRandomNumber = function (min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
     };
     return ClippyController;
 })();

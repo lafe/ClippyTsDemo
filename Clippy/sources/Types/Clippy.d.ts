@@ -57,8 +57,9 @@ declare module clippy {
          * Shows a text ballon with the message
          *
          * @param message The message to be shown
+         * @param hold Keeps the balloon open
          */
-        speak(message: string);
+        speak(message: string, hold?:boolean);
 
         /**
          * Closes the current balloon
